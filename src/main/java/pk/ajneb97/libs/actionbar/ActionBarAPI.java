@@ -80,23 +80,17 @@ public class ActionBarAPI
 	  
       if (duration > 0) {
           // Sends empty message at the end of the duration. Allows messages shorter than 3 seconds, ensures precision.
-          new BukkitRunnable() {
-              @Override
-              public void run() {
+          PlayerKits2.getScheduler().runTaskLater(() -> {
             	  sendActionBar(player, "");
-              }
-          }.runTaskLater(plugin, duration + 1);
+          }, duration + 1);
       }
 
       // Re-sends the messages every 3 seconds so it doesn't go away from the player's screen.
       while (duration > 40) {
           duration -= 40;
-          new BukkitRunnable() {
-              @Override
-              public void run() {
+          PlayerKits2.getScheduler().runTaskLater(() -> {
                   sendActionBar(player, message);
-              }
-          }.runTaskLater(plugin, (long) duration);
+          }, duration);
       }
   }
 

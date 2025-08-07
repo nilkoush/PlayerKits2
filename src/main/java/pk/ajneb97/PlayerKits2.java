@@ -1,6 +1,8 @@
 
 package pk.ajneb97;
 
+import com.github.Anon8281.universalScheduler.UniversalScheduler;
+import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,6 +27,7 @@ public class PlayerKits2 extends JavaPlugin {
     public String version = getDescription().getVersion();
     public static String prefix;
     public static ServerVersion serverVersion;
+    private static TaskScheduler scheduler;
 
     private KitItemManager kitItemManager;
     private KitsManager kitsManager;
@@ -44,6 +47,8 @@ public class PlayerKits2 extends JavaPlugin {
     private MySQLConnection mySQLConnection;
 
     public void onEnable(){
+        scheduler = UniversalScheduler.getScheduler(this);
+
         setVersion();
         setPrefix();
         registerCommands();
@@ -79,7 +84,7 @@ public class PlayerKits2 extends JavaPlugin {
         if(getServer().getPluginManager().getPlugin("PlaceholderAPI") != null){
             new ExpansionPlayerKits(this).register();
         }
-        Metrics metrics = new Metrics(this,19795);
+        //Metrics metrics = new Metrics(this,19795);
 
         Bukkit.getConsoleSender().sendMessage(MessagesManager.getColoredMessage(prefix+"&eHas been enabled! &fVersion: "+version));
         Bukkit.getConsoleSender().sendMessage(MessagesManager.getColoredMessage(prefix+"&eThanks for using my plugin!   &f~Ajneb97"));
@@ -219,5 +224,9 @@ public class PlayerKits2 extends JavaPlugin {
             Bukkit.getConsoleSender().sendMessage(MessagesManager.getColoredMessage(prefix+"&cError while checking update."));
         }
 
+    }
+
+    public static TaskScheduler getScheduler() {
+        return scheduler;
     }
 }

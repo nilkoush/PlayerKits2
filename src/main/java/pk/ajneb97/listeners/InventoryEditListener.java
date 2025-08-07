@@ -76,12 +76,9 @@ public class InventoryEditListener implements Listener {
         InventoryPlayer inventoryPlayer = invManager.getInventoryPlayer(player);
         if(inventoryPlayer != null) {
             event.setCancelled(true);
-            new BukkitRunnable(){
-                @Override
-                public void run() {
-                    invManager.writeChat(inventoryPlayer, ChatColor.stripColor(event.getMessage()));
-                }
-            }.runTaskLater(plugin,1L);
+            PlayerKits2.getScheduler().runTaskLater(() -> {
+                invManager.writeChat(inventoryPlayer, ChatColor.stripColor(event.getMessage()));
+            }, 1L);
         }
     }
 }

@@ -23,15 +23,12 @@ public class MigrationManager {
     }
 
     public void migrate(CommandSender sender){
-        new BukkitRunnable(){
-            @Override
-            public void run() {
+        PlayerKits2.getScheduler().runTaskAsynchronously(() -> {
                 migrateKits(sender);
                 migratePlayers(sender);
 
                 sender.sendMessage(PlayerKits2.prefix+MessagesManager.getColoredMessage(" &aMigration completed."));
-            }
-        }.runTaskAsynchronously(plugin);
+        });
     }
 
     public void migrateKits(CommandSender sender){

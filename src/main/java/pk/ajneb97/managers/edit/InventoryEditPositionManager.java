@@ -146,13 +146,10 @@ public class InventoryEditPositionManager {
     public void closeInventory(InventoryPlayer inventoryPlayer){
         boolean mustReturn = Boolean.parseBoolean(inventoryPlayer.getInventoryName().split(";")[2]);
         if(mustReturn){
-            new BukkitRunnable(){
-                @Override
-                public void run() {
+            PlayerKits2.getScheduler().runTaskLater(() -> {
                     inventoryPlayer.restoreSavedInventoryContents();
                     inventoryEditManager.openInventory(inventoryPlayer);
-                }
-            }.runTaskLater(plugin,1L);
+            }, 1L);
         }
     }
 }

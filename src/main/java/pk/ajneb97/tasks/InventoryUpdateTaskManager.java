@@ -20,12 +20,7 @@ public class InventoryUpdateTaskManager {
     }
 
     public void start(){
-        new BukkitRunnable(){
-            @Override
-            public void run() {
-                execute();
-            }
-        }.runTaskTimer(plugin,0L,20L);
+        PlayerKits2.getScheduler().runTaskTimer(this::execute, 0L, 20L);
     }
 
     public void execute(){
